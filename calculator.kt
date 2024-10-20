@@ -57,7 +57,7 @@ fun main() {
             break
         }
 
-        // error handeling
+        // Convert input1 to a double, handling invalid inputs
         val num1 = input1.toDoubleOrNull()
         if (num1 == null) {
             println("Invalid input. Please enter a valid number.")
@@ -67,32 +67,31 @@ fun main() {
         println("Enter second number (or type 'sqrt' to calculate square root of the first number): ")
         val input2 = reader.next()
 
-        // Square root calculator operation.
+        // Handle square root case
         val num2: Double? = if (input2.lowercase() == "sqrt") {
-            null
+            null // Square root of num1, no second number needed
         } else {
             input2.toDoubleOrNull().also {
                 if (it == null) {
                     println("Invalid input. Please enter a valid number.")
-                    continue
                 }
             }
         }
 
+        // Simple calculator app with basic operations
         println("Enter an operation (+, -, *, /, %, ^): ")
         val operator = reader.next()[0]
 
-        val result = when (operator) {
+        val result: Double? = when (operator) {
             '+' -> add(num1, num2 ?: 0.0)
             '-' -> subtract(num1, num2 ?: 0.0)
             '*' -> multiply(num1, num2 ?: 0.0)
             '/' -> {
-                divide(num1, num2 ?: 0.0)?.also {
-                    if (num2 == 0.0) {
-                        println("Division by zero is not allowed.")
-                        continue
-                    }
+                if (num2 == null || num2 == 0.0) {
+                    println("Division by zero is not allowed.")
+                    continue
                 }
+                divide(num1, num2)
             }
             '%' -> modulus(num1, num2 ?: 0.0)
             '^' -> exponentiate(num1, num2 ?: 0.0)
