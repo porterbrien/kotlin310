@@ -1,7 +1,7 @@
 import java.util.Scanner
 
 fun main() {
-
+    // var if we want to change variable later
     var loop = false 
     val reader = Scanner(System.`in`)
 
